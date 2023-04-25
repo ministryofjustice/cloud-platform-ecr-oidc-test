@@ -1,0 +1,14 @@
+version: 2.1
+
+orbs:
+  aws-ecr: circleci/aws-ecr@8.2.1
+
+workflows:
+  ecr:
+    jobs:
+      - aws-ecr/build-and-push-image:
+          assume-web-identity: true
+          region: "eu-west-2"
+          repo: "webops/jakemulley-development"
+          tag: "circleci-${CIRCLE_SHA1}"
+          role-arn: "arn"
