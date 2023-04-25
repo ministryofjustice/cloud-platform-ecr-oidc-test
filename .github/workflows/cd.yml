@@ -14,7 +14,12 @@ jobs:
         with:
           role-to-assume: ${{ secrets.ECR_ROLE_TO_ASSUME }}
           aws-region: ${{ secrets.ECR_REGION }}
-      - uses: aws-actions/amazon-ecr-login@v1
-      - run: |
-          docker build -t ${{ secrets.ECR_REPOSITORY_URL }}:${{ env.GITHUB_SHA }} .
-          docker push ${{ secrets.ECR_REPOSITORY_URL }}:${{ env.GITHUB_SHA }}
+      - id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+      - env:
+          REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          REPOSITORY: "webops/jakemulley-development"
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG .
+          docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
