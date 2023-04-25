@@ -1,0 +1,20 @@
+on:
+  push:
+    branches: [main]
+
+jobs:
+  ecr:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write   # This is required for requesting the JWT
+      contents: read    # This is required for actions/checkout
+    steps:
+      - uses: actions/checkout@v3
+      - uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: ${{ secrets.ECR_ROLE_TO_ASSUME }}
+          aws-region: ${{ secrets.ECR_REGION }}
+      - uses: aws-actions/amazon-ecr-login@v1
+      - run: |
+          docker build -t ${{ secrets.ECR_REPOSITORY_URL }}:${{ env.GITHUB_SHA }} .
+          docker push ${{ secrets.ECR_REPOSITORY_URL }}:${{ env.GITHUB_SHA }}
