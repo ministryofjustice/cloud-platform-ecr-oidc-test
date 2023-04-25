@@ -14,5 +14,6 @@ workflows:
           repo: "webops/jakemulley-development"
           role-session-name: "circleci-job"
           tag: "circleci-${CIRCLE_SHA1}"
+          registry-id: $AWS_ECR_REGISTRY_ID
           context:
             - cloud-platform-ecr-oidc-test
