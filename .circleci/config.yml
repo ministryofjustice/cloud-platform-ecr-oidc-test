@@ -12,6 +12,7 @@ workflows:
           role-arn: $ECR_ROLE_ARN
           region: "eu-west-2"
           repo: "webops/jakemulley-development"
+          role-session-name: "circleci-job"
           tag: "circleci-${CIRCLE_SHA1}"
           context:
             - cloud-platform-ecr-oidc-test
