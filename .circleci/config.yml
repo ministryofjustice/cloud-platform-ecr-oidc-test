@@ -11,7 +11,7 @@ workflows:
           assume-web-identity: true
           role-arn: $ECR_ROLE_ARN
           region: "eu-west-2"
-          repo: "webops/jakemulley-development"
+          repo: "webops/oidc-test"
           role-session-name: "circleci-job"
           tag: "circleci-${CIRCLE_SHA1}"
           context:
