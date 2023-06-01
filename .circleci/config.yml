@@ -13,7 +13,7 @@ jobs:
           role_arn: $ECR_ROLE_TO_ASSUME # this will use the env var
           region: $ECR_REGION # this will use the env var
       - run: |
-          aws ecr get-login-password --region $ECR_REGION | docker login --username AWS --password-stdin ${AWS_ECR_REGISTRY_ID}.dkr.ecr.region.amazonaws.com
+          aws ecr get-login-password --region $ECR_REGION | docker login --username AWS --password-stdin ${AWS_ECR_REGISTRY_ID}.dkr.ecr.${ECR_REGION}.amazonaws.com
       - aws-ecr/build-image:
           push-image: true
           tag: ${CIRCLE_SHA1}
