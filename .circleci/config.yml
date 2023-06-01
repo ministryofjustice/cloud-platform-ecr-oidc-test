@@ -6,22 +6,20 @@ orbs:
 
 jobs:
   example:
-    environment:
-      AWS_REGION: "eu-west-2"
     docker:
       - image: cimg/aws:2022.06
     steps:
       - checkout
       - aws-cli/setup:
-          role-arn: $ECR_ROLE_ARN
-          aws-region: AWS_REGION
+          role-arn: $ECR_ROLE_TO_ASSUME # this will use the env var
+          aws-region: $AWS_REGION # this will use the env var
           profile-name: "oidc"
       - aws-ecr/build-image:
           push-image: true
           profile-name: "oidc"
           tag: "circleci-${CIRCLE_SHA1}"
-          repo: "webops/oidc-test"
-          
+          repo: $ECR_REPOSITORY # this will use the env var
+
 workflows:
   oidc:
     jobs:
