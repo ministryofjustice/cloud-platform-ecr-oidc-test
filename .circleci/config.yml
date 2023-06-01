@@ -7,8 +7,6 @@ orbs:
 jobs:
   example:
     executor: aws-ecr/default
-    environment:
-      AWS_ECR_REGISTRY_ID: ECR_REGISTRY_ID
     steps:
       - checkout
       - aws-cli/setup:
