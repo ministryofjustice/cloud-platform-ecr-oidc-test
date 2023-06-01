@@ -7,7 +7,7 @@ orbs:
 jobs:
   example:
     environment:
-      AWS_REGION: "eu-west-2
+      AWS_REGION: "eu-west-2"
     docker:
       - image: cimg/aws:2022.06
     steps:
@@ -20,6 +20,8 @@ jobs:
           push-image: true
           profile-name: "oidc"
           tag: "circleci-${CIRCLE_SHA1}"
+          repo: "webops/oidc-test"
+          
 workflows:
   oidc:
     jobs:
