@@ -21,7 +21,7 @@ jobs:
           repo: $ECR_REPOSITORY # this will use the env var
 
 workflows:
-  oidc:
+  example:
     jobs:
       - example:
           context: cloud-platform-ecr-oidc-test
