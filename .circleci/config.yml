@@ -1,18 +1,27 @@
 version: 2.1
 
 orbs:
+  aws-cli: circleci/aws-cli@3.1.5
   aws-ecr: circleci/aws-ecr@8.2.1
 
-# Orchestrate our job run sequence
-workflows:
-  build:
-    jobs:
-      - aws-ecr/build-and-push-image:
-          assume-web-identity: true
+jobs:
+  example:
+    environment:
+      AWS_REGION: "eu-west-2
+    docker:
+      - image: cimg/aws:2022.06
+    steps:
+      - checkout
+      - aws-cli/setup:
           role-arn: $ECR_ROLE_ARN
-          region: "eu-west-2"
-          repo: "webops/oidc-test"
-          role-session-name: "circleci-job"
+          aws-region: AWS_REGION
+          profile-name: "oidc"
+      - aws-ecr/build-image:
+          push-image: true
+          profile-name: "oidc"
           tag: "circleci-${CIRCLE_SHA1}"
-          context:
-            - cloud-platform-ecr-oidc-test
+workflows:
+  oidc:
+    jobs:
+      - example:
+          context: cloud-platform-ecr-oidc-test
