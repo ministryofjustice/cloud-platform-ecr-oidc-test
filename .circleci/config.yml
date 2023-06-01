@@ -8,6 +8,8 @@ jobs:
   example:
     docker:
       - image: cimg/aws:2022.06
+    environment:
+      AWS_ECR_REGISTRY_ID: $ECR_REGISTRY_ID
     steps:
       - checkout
       - aws-cli/setup:
