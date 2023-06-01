@@ -7,6 +7,8 @@ orbs:
 jobs:
   example:
     executor: aws-ecr/default
+    environment:
+      AWS_ECR_REGISTRY_ID: ECR_REGISTRY_ID
     steps:
       - checkout
       - aws-cli/setup:
@@ -17,7 +19,6 @@ jobs:
           tag: ${CIRCLE_SHA1}
           region: $ECR_REGION # this will use the env var
           repo: $ECR_REPOSITORY # this will use the env var
-          AWS_ECR_REGISTRY_ID: "ECR_REGISTRY_ID" # this will use the env var
 
 workflows:
   example:
