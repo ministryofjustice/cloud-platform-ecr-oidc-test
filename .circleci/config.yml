@@ -8,7 +8,7 @@ jobs:
   example:
     executor: aws-ecr/default
     environment:
-      AWS_ECR_REGISTRY_ID: ${ECR_REGISTRY_ID} # this will use the env var
+      AWS_ECR_REGISTRY_ID: $ECR_REGISTRY_ID # this will use the env var
     steps:
       - checkout
       - aws-cli/setup:
